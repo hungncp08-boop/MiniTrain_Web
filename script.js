@@ -118,7 +118,6 @@ async function sendMotorCommand(command, speed) {
     return;
   }
 
-  // --- REAL ESP32-C3 REQUEST ---
   try {
     const response = await fetchWithTimeout(`${API_BASE_URL}/api/motor`, {
       method: "POST",
@@ -223,8 +222,6 @@ function setMockMode(enabled) {
   }
 }
 
-// --- EVENT LISTENERS ---
-
 mockModeToggle.addEventListener("change", () => {
   setMockMode(mockModeToggle.checked);
 });
@@ -266,7 +263,6 @@ btnStop.addEventListener("click", () => {
   sendMotorCommand("stop", 0);
 });
 
-// --- INITIALIZE ---
 updateSliderVisual(0);
 checkStatus();
 setInterval(checkStatus, STATUS_POLL_INTERVAL_MS);
