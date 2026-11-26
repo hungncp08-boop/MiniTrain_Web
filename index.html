@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Train Controller</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <span class="rail-tag">HIGH-SPEED RAIL SYSTEM</span>
+      <h1>Mini Train Controller</h1>
+      <div id="connection-badge" class="status-badge disconnected">
+        <span class="status-dot"></span>
+        <span id="connection-text">Disconnected</span>
+      </div>
+    </header>
+
+    <!-- Mock Mode Warning Banner (enabled in Stage 5) -->
+    <div id="mock-banner" class="mock-banner" hidden>
+      MOCK MODE: Simulating interface (not connected to real ESP32-C3)
+    </div>
+
+    <!-- Main Controller Panel -->
+    <main class="controller-card">
+      <!-- Telemetry HUD -->
+      <section class="telemetry-panel">
+        <div class="telemetry-item">
+          <span class="telemetry-label">Train Status</span>
+          <strong id="motor-state" class="telemetry-value">Stopped</strong>
+        </div>
+        <div class="telemetry-item speed-readout">
+          <span class="telemetry-label">Speed (PWM)</span>
+          <strong class="telemetry-value">
+            <span id="speed-value" class="speed-number">0</span>
+            <span class="speed-max">/ 255</span>
+          </strong>
+        </div>
+      </section>
+
+      <!-- Speed Slider -->
+      <section class="control-section">
+        <div class="section-header">
+          <label for="speed-slider">Speed Control</label>
+          <span class="range-hint">THROTTLE 0 – 255</span>
+        </div>
+
+        <input
+          type="range"
+          id="speed-slider"
+          class="speed-slider"
+          min="0"
+          max="255"
+          value="0"
+        >
+
+        <div class="slider-scale" aria-hidden="true">
+          <span>0</span>
+          <span>128</span>
+          <span>255</span>
+        </div>
+      </section>
+
+      <!-- Action Buttons: Forward & Stop -->
+      <section class="control-section action-buttons">
+        <button id="btn-forward" class="btn btn-forward" type="button">
+          <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 5l7 7-7 7M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>FORWARD</span>
+        </button>
+
+        <button id="btn-stop" class="btn btn-stop" type="button">
+          <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+          </svg>
+          <span>STOP</span>
+        </button>
+      </section>
+
+      <!-- System Status / Error Message -->
+      <p id="status-message" class="status-message">
+        Not connected to ESP32-C3.
+      </p>
+    </main>
+
+    <!-- Mock Mode Toggle -->
+    <footer class="footer">
+      <label class="mock-toggle" for="mock-mode-toggle">
+        <input type="checkbox" id="mock-mode-toggle">
+        <span>Mock Mode (Test without ESP32-C3)</span>
+      </label>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
